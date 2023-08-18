@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="text-center mt-2">
+    <h1>Submit Tax Filing</h1>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-7 mx-auto my-4 ">
+      <nz-steps [nzCurrent]="1">
+        <nz-step nzTitle="Finished" nzDescription="Input Tax"></nz-step>
+        <nz-step nzTitle="In Progress" nzSubtitle="" nzDescription="Review & Confirm"></nz-step>
+      </nz-steps>
+    </div>
+  </div>
+  <div class="card mr-md-5 ml-md-5">
+    <div class="card-body">
+      <h4>Tax Filing Detail</h4>
+      <hr />
+      <div class="row">
+        <div class="col-4 col-md-3">
+          <p class="font-weight-bold">Type Of Filing</p>
+        </div>
+        <div class="col-4 col-md-3">
+          {{ taxData.fillingType }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 col-md-3">
+          <p class="font-weight-bold">VAT Month</p>
+        </div>
+        <div class="col-4 col-md-3">{{ taxData.month }} {{ taxData.year }}</div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4>Tax Computation</h4>
+          <hr />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <p class="font-weight-bold">
+            Total value of taxable electronic service exclusive of VAT
+          </p>
+        </div>
+        <div class="col-12 col-md-4 text-left text-md-right">
+          <p>{{ formatNumber(taxData.saleAmount) }} THB</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <p class="font-weight-bold">
+            Total VAT to be remitted
+            <br />
+            <span class="font-weight-light">(7% of Total value of taxable electronic service exclusive of
+              VAT)</span>
+          </p>
+        </div>
+        <div class="col-12 col-md-4 text-left text-md-right">
+          <p>{{ formatNumber(taxData.taxAmount) }} THB</p>
+        </div>
+      </div>
+      <!--  -->
+      <div *ngIf="taxData.fillingType === 'Additional'">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p class="font-weight-bold">Surcharge</p>
+          </div>
+          <div class="col-12 col-md-4 text-left text-md-right">
+            <p>{{ formatNumber(taxData.surcharge) }} THB</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p class="font-weight-bold">Penalty</p>
+          </div>
+          <div class="col-12 col-md-4 text-left text-md-right">
+            <p>{{ formatNumber(taxData.penalty) }} THB</p>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <p class="font-weight-bold">Total Amount Payable</p>
+        </div>
+        <div class="col-12 col-md-4 text-left text-md-right">
+          <p class="font-weight-bold">{{ formatNumber(taxData.totalAmount) }} THB</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-4">
+          <h4>Declaration</h4>
+          <hr />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p>
+            I hereby certify that infomation given above are true and correct
+            and agree to be bound by such infomation
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4 mb-4">
+    <button class="badge-pill btn btn-outline-success " (click)="lgModal.show()">Confirm and Submit</button>
+  </div>
+</div>
+
+
+
+
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Json Message</h4>
+        <button type="button" class="btn-close close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark">
+        <div class="row">
+          <div class="col-12">
+            <p class="text-white overflow-auto p-5 ">{{ createTaxDataJsonMessage() }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

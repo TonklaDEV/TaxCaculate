@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label>Type of Filing <i class="text-danger">&#42;</i></label>
+  <div class="form-check">
+    <div class="row">
+      <div class="col-md-4  col-6 ">
+        <input class="form-check-input" type="radio" name="filingType" id="Ordinary" value="0"
+          [(ngModel)]="selectedType" (click)="onRadioClick($event)" />
+        <label class="form-check-label" for="Ordinary">
+          Ordinary filing <fa-icon [icon]="faQuestionCircle"></fa-icon>
+        </label>
+      </div>
+      <div class="col-md-4  col-6 ">
+        <input class="form-check-input" type="radio" name="filingType" id="Additional" value="1"
+          [(ngModel)]="selectedType" (click)="onRadioClick($event)" />
+        <label class="form-check-label" for="Additional">
+          Additional filing <fa-icon [icon]="faQuestionCircle"></fa-icon>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

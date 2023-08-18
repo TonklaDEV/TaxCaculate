@@ -1,0 +1,14 @@
+<div class="form-group d-flex align-items-center">
+  <input
+    class="form-control text-right"
+    type="number"
+    id="taxAmount"
+    [value]="taxAmount"
+    [(ngModel)]="taxAmount"
+    (input)="formatCurrency($event)"
+    (focus)="onFocus()"
+    min="{{ MIN }}"
+    max="{{ MAX }}"
+    placeholder="THB"
+  />
+</div>

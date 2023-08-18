@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="text-center mt-2">
+    <h1>Submit Tax Filing</h1>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-7 mx-auto my-4">
+      <nz-steps [nzCurrent]="0">
+        <nz-step nzTitle="In Progress" nzDescription="Input Tax"></nz-step>
+        <nz-step nzTitle="Waitng" nzSubtitle="" nzDescription="Review & Confirm"></nz-step>
+      </nz-steps>
+    </div>
+  </div>
+  
+  <div class="card mr-md-5 ml-md-5">
+    <div class="card-body">
+      <h5>1. Tax Filing Detail</h5>
+      <hr />
+      <app-filing-type (filingTypeChange)="onFilingTypeChange($event)"></app-filing-type>
+      <label>Vat Month <i class="text-danger">&#42;</i></label>
+      <div class="row">
+        <div class="col-6 col-md-4">
+          <app-month (monthChange)="getMonth($event)"></app-month>
+        </div>
+        <div class="col-6 col-md-4">
+          <app-year (yearChange)="getYear($event)"></app-year>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <h5>2. Tax Computation</h5>
+        </div>
+        <div class="col-12 col-md-6 text-md-right">
+          <a href="#">View Exchange Rate</a>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12">
+          <strong>Provide total value taxable electronic service
+            <i class="text-danger">&#42;</i></strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <p>1. Underdeclared Thai taxable electronic service</p>
+        </div>
+        <div class="col-8 col-md-4">
+          <app-sale-amount (saleAmountOutput)="getSaleAmount($event)" (taxAmountOutput)="getTaxAmount($event)"></app-sale-amount>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <p>2. Total VAT to be remitted (7% of 1.)</p>
+        </div>
+        <div class="col-8 col-md-4">
+          <app-tax-amount [taxAmount]="taxAmount" (taxAmoutOutput)="getTaxAmountForCharge($event)"></app-tax-amount>
+        </div>
+      </div>
+      <ng-template [ngIf]="selectedType === '1'">
+        <div class="row">
+          <div class="col-12">
+            <strong>
+              In case of late filling and payment, or additional filling
+            </strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <p>3. Surcharge <fa-icon [icon]="faQuestionCircle"></fa-icon></p>
+          </div>
+          <div class="col-8 col-md-4">
+            <app-surcharge [taxAmount]="taxAmoutForSurCharge" (surChargeOutput)="getSurCharge($event)"></app-surcharge>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <p>4. Penalty <fa-icon [icon]="faQuestionCircle"></fa-icon></p>
+          </div>
+          <div class="col-8 col-md-4">
+            <app-penalty (PENALTY)="getPenalty($event)"></app-penalty>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <p>
+              5. Total amount of VAT,surcharge,and penalty to be remitted (2. +
+              3. +4.)
+            </p>
+          </div>
+          <div class="col-8 col-md-4">
+            <app-total-amount [surcharge]="surCharge" [penalty]="PENALTY" [taxAmount]="taxAmount" (totalAmountOutput)="getTotal($event)"></app-total-amount>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="ml-md-5 mt-3 ">
+    <button type="button" class="btn btn-success pl-4 pr-4 pt-2 pb-2  badge-pill " (click)="sendData()">Next</button>
+  </div>
+</div>

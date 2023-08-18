@@ -1,0 +1,11 @@
+<div class="form-group">
+  <select class="form-control" id="month" (change)="emitMonthChange()" [(ngModel)]="selectedMonth">
+    <option
+      *ngFor="let month of months; let i = index"
+      [value]="month"
+      [disabled]="i > currentMonthIndex"
+    >
+      {{ month }}
+    </option>
+  </select>
+</div>

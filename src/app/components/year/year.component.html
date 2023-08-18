@@ -1,0 +1,5 @@
+<div class="form-group">
+  <select class="form-control" id="year" (change)="emitYearChange()" [(ngModel)]="selectedYear">
+    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+  </select>
+</div>
